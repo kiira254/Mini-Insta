@@ -12,13 +12,13 @@ class Picture (models.Model):
 
     @classmethod
     def save_Image (cls):
-        images=cls.objects.filter()
-        return images
+        photos=cls.objects.filter()
+        return photos
 
     @classmethod
     def delete_Image (cls):
-        images=cls.objects.filter()
-        return images
+        photos=cls.objects.filter()
+        return photos
 
     @classmethod
     def update_caption():
