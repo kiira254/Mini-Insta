@@ -14,18 +14,18 @@ def image(request,image_id):
     return render(request,"all-photos/image.html", {"image":image})
 
 
-def search_results(request):
-    user_name = self.request.GET.get('search', '')
-    print(user_name)
-    message = f'{search_term}'
-        params = {
-            user_name= 'user_name'
-            'message': message,
-        }
+# def search_results(request):
+#     user_name = self.request.GET.get('search', '')
+#     print(user_name)
+#     message = f'{search_term}'
+#     params = {
+#         'user_name' = user_name,
+#         'message': message,
+#         }
 
-        return render(request, 'all-photos/search.html',params)
+#         return render(request, 'all-photos/search.html',params)
 
-    else:
+#     else:
         
-        message = "You haven't searched for any User"
-        return render(request, 'all-photos/search.html',{"message":message})
+#         message = "You haven't searched for any User"
+#         return render(request, 'all-photos/search.html',{"message":message})
