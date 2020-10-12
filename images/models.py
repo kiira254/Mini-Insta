@@ -24,6 +24,12 @@ class Image(models.Model):
     def update_caption():
         self.save()
 
+    def get_context_data(self, **kwargs):
+    context = super().get_context_data(**kwargs)
+    user_name = self.request.GET.get('user_name', '')
+    context['all_search_results'] = User.objects.filter(username__icontains=user_name )
+    return context
+
 class Like(models.Model):
     user = models.ForeignKey(User)
     picture = models.ForeignKey(Picture)
