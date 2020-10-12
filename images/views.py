@@ -1,9 +1,12 @@
+from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
-from django.http import Http404, HttpResponse
+import datetime as dt
+from .models import Image, Profile, Like
+
 # Create your views here.
 
 def post (request):
-    photos = cls.objects.filter()
+    photos = Image.save_()
     return render(request,'posts.html',{{'photos':photos}})
 
 def image(request,image_id):
