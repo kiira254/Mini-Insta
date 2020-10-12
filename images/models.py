@@ -1,3 +1,50 @@
 from django.db import models
+from django.contrib.auth.models import User
+from django.db.models.signals import post_save
 
 # Create your models here.
+class Picture (models.Model):
+    pic = models.ImageField(upload_to = 'image/'blank=True)
+    name = models.CharField(max_length =60)
+    caption = models.TextField()
+    Profile= models.ForeignKey(User,on_delete=models.CASCADE)
+    likes=models.like_set.all().count()
+
+    @classmethod
+    def save_Image (cls):
+        images=cls.objects.filter()
+        return images
+
+    @classmethod
+    def delete_Image (cls):
+        images=cls.objects.filter()
+        return images
+
+    @classmethod
+    def update_caption():
+        self.save()
+
+class Like(models.Model):
+    user = models.ForeignKey(User)
+    picture = models.ForeignKey(Picture)
+    created = models.DateTimeField(auto_now_add=True)
+
+    
+    def like(request, picture_id):
+        new_like, created = Like.objects.get_or_create(user=request.user, picture_id=picture_id)
+        if not created:
+            # the user already liked this picture before
+        else:
+            # oll korrekt
+
+    def picture_detail(request, id):
+        pic = get_object_or_404(Picture, pk=id)
+        user_likes_this = pic.like_set.filter(user=request.user) and True or False
+
+class Profile
+    user = models.OneToOneField(User)
+    Profile_photo = models.ImageField(upload_to = 'image/'blank=True)
+    Bio = models.TextField()
+
+    def __str__(self):  
+        return "%s's profile" % self.user  
