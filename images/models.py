@@ -4,7 +4,7 @@ from django.db.models.signals import post_save
 
 # Create your models here.
 class Image(models.Model):
-    pic = models.ImageField(upload_to = 'image/'blank=True)
+    image = models.ImageField(upload_to = 'image/'blank=True)
     name = models.CharField(max_length =60)
     caption = models.TextField()
     Profile= models.ForeignKey(User,on_delete=models.CASCADE)
