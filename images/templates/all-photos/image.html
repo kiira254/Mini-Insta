@@ -1,0 +1,25 @@
+
+ {% block content %}
+
+ <div class="container">
+
+    <div class="row">
+        <h1 class="text-center">{{image.name}}</h1>
+    </div>
+   
+   <div class="row">
+     <img src="{{image.image_image.url}}"  class="img-responsive" alt="">
+   </div>
+
+   <div class="row">
+     <h1 class="text-center">{{image.caption}}</h1>
+   </div>
+
+   <div class="row">
+     <p>{{image.likes}}</p>
+     <p>{{image.comment}}</p>
+   </div>
+
+ </div>
+
+ {% endblock %}
