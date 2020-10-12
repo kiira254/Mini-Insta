@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 
 # Create your models here.
-class Picture (models.Model):
+class Image(models.Model):
     pic = models.ImageField(upload_to = 'image/'blank=True)
     name = models.CharField(max_length =60)
     caption = models.TextField()
