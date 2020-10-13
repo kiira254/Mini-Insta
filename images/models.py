@@ -1,13 +1,15 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
+from tinymce.models import HTMLField
 
 # Create your models here.
 class Image(models.Model):
     image = models.ImageField(upload_to = 'image/',blank=True)
     name = models.CharField(max_length =60)
-    caption = models.TextField()
+    caption =HTMLField()
     profile= models.ForeignKey(User,on_delete=models.CASCADE)
+    editor = models.ForeignKey(User,on_delete=models.CASCADE)
     # likes = models.ManyToManyField(User, through="Like")
 
     def __str__(self):

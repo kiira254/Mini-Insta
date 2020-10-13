@@ -5,6 +5,7 @@ from .models import Image, Profile, Like
 from .email import send_welcome_email
 from .forms import LetterForm
 from django.contrib.auth.decorators import login_required
+from .forms import LetterForm, ImageForm
 
 # Create your views here.
 
@@ -31,6 +32,20 @@ def image(request,image_id):
         raise Http404()
     return render(request,"all-photos/image.html", {"image":image})
 
+@login_required(login_url='/accounts/login/')
+def new_image(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = ImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            image = form.save(commit=False)
+            image.editor = current_user
+            image.save()
+        return redirect('post')
+
+    else:
+        form = NewArticleForm()
+    return render(request, 'new_post.html', {"form": form})
 
 def search_results(request):
     if 'image' in request.GET and request.GET['image']:

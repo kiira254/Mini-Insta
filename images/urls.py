@@ -7,7 +7,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path('', views.post, name = 'post'),
     path('image/<int:id>',views.image,name ='image'),
-    # path('new/image', views.new_image, name='new-image'),
+    path('new/image', views.new_image, name='new-image'),
     path('search/', views.search_results, name='search_results'),
     
 ]
