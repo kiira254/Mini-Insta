@@ -6,8 +6,8 @@ from .models import Image, Profile, Like
 # Create your views here.
 
 def post (request):
-    photos = Image.save_()
-    return render(request,'posts.html',{{'photos':photos}})
+    image = Image.save_Image()
+    return render(request,'post.html',{'image':image})
 
 def image(request,image_id):
     try:
@@ -18,17 +18,20 @@ def image(request,image_id):
 
 
 # def search_results(request):
-#     user_name = self.request.GET.get('search', '')
-#     print(user_name)
-#     message = f'{search_term}'
-#     params = {
-#         'user_name' = user_name,
-#         'message': message,
+#     if 'image' in request.GET and request.GET['image']:
+#         search_term = request.GET.get('image')
+#         print(search_term)
+#         searched_photos = Image.search_by_title(search_term)
+#         print(searched_photos)
+#         message = f'{search_term}'
+#         params = {
+#             'searched_photos': searched_photos,
+#             'message': message,
 #         }
 
 #         return render(request, 'all-photos/search.html',params)
 
 #     else:
         
-#         message = "You haven't searched for any User"
+#         message = "You haven't searched for any category"
 #         return render(request, 'all-photos/search.html',{"message":message})

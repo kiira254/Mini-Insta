@@ -16,13 +16,13 @@ class Image(models.Model):
 
     @classmethod
     def save_Image (cls):
-        photos=cls.objects.filter()
-        return photos
+        image=cls.objects.filter()
+        return image
 
     @classmethod
     def delete_Image (cls):
-        photos=cls.objects.filter()
-        return photos
+        image=cls.objects.filter()
+        return image
 
     @classmethod
     def update_caption():
@@ -40,7 +40,7 @@ class Like(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.user
+        return self.like
 
     
     def like(request, picture_id):
@@ -50,10 +50,23 @@ class Like(models.Model):
         pic = get_object_or_404(Picture, pk=id)
         user_likes_this = pic.like_set.filter(user=request.user) and True or False
 
+    # @classmethod
+    # def search_image(cls, key):
+    #     Image = cls.objects.filter(
+    #         cls(caption__contains=key) | cls(name__icontains=key))
+    #     print(Image)
+    #     return Image
+
+    # @classmethod
+    # def search_by_category(cls, name):
+    #     Image = cls.objects.filter(name__icontains=name)
+    #     return Image
+
+
 class Profile(models.Model):
     user = models.OneToOneField(User,on_delete=models.CASCADE)
     profile_photo = models.ImageField(upload_to = 'image/', blank=True)
     Bio = models.TextField()
 
     def __str__(self):  
-        return "%s's profile" % self.user  
+        return "%s's profile" % self.profile_photo  

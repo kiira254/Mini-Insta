@@ -1,22 +1,25 @@
-{%extends 'all-news/base.html'%} 
-{% load bootstrap4 %}
+<!-- {%extends 'all-photos/base.html'%} 
 {% block content %}
 <div class="container">
 
   <div class="row">
-    <form class="example" method="GET">
-        <input type="text" placeholder='search' name="user_name">
-        <button type="submit">
-            search
-         </button>
-    </form>
-    
-    {% for result in all_search_results %}
-       {{ result.user_name }}
-    {% empty %}
-       add something to show no results
+    {% if image%}
+      <h2>Found {{ images|length }} of searched term {{message}}</h2>
+    {% else %}
+      <h2> Found 0 images for the search term {{message}}</h2>
+    {% endif %}
+
+  </div>
+
+  <div class="row">
+
+  {% if images %}
+    {% for image in images %}
+      <div class="col-sm-6 col-md-3">
+          <h1>{{image.name}}</h1>
+      </div>
     {% endfor %}
   {% endif %}
   </div>
 </div>
-{% endblock %}
+{% endblock %} -->

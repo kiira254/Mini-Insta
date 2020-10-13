@@ -11,7 +11,7 @@
 
   <div class="container">
     <div class="row">
-      {% for photos_item in photos %}
+      {% for photos_item in image %}
       <div class="col-md-3">
         <a id="link" type="button" style="background-color: rgb(243, 225, 243);" data-toggle="modal" data-target="#exampleModalLong{{photos_item.id}}">
           <img style="width: 300px;height: 300px;" src="{{photos_item.Image.url}}" class="img-responsive" alt="Image">
