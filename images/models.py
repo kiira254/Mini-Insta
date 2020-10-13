@@ -11,7 +11,7 @@ class Image(models.Model):
     # likes = models.ManyToManyField(User, through="Like")
 
     def __str__(self):
-        return self.image
+        return self.name
 
 
     @classmethod

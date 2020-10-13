@@ -14,7 +14,7 @@
       {% for photos_item in image %}
       <div class="col-md-3">
         <a id="link" type="button" style="background-color: rgb(243, 225, 243);" data-toggle="modal" data-target="#exampleModalLong{{photos_item.id}}">
-          <img style="width: 300px;height: 300px;" src="{{photos_item.Image.url}}" class="img-responsive" alt="Image">
+          <img style="width: 300px;height: 300px;" src="{{photos_item.image.url}}" class="img-responsive" alt="Image">
         </a>
       </div>
       <div class="modal fade" id="exampleModalLong{{photos_item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
@@ -27,7 +27,7 @@
               </button>
             </div>
             <div class="modal-body" style="text-align: center;">
-              <img style="width: 600px;height: 300px;" src="{{photos_item.Image.url}}" class="img-responsive" alt="Image">
+              <img style="width: 600px;height: 300px;" src="{{photos_item.image.url}}" class="img-responsive" alt="Image">
               <h2 class="" style="color: purple;">caption : {{ photos_item.caption }} </h2>
               <h3 class="" style="color: purple;">Likes: {{ photos_item.likes }} </h3>
               <h4 class="" style="color: rgb(59, 39, 59);">comments: {{ photos_item.comments }} </h4>
