@@ -2,7 +2,7 @@ from django.http import HttpResponse, Http404
 from django.shortcuts import render, redirect
 import datetime as dt
 from .models import Image, Profile, Like
-
+from .email import send_welcome_email
 # Create your views here.
 
 def post (request):
