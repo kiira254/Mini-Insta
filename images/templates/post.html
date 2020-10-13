@@ -15,8 +15,12 @@
       <div class="col-md-3">
         <a id="link" type="button" style="background-color: rgb(243, 225, 243);" data-toggle="modal" data-target="#exampleModalLong{{photos_item.id}}">
           <img style="width: 300px;height: 300px;" src="{{photos_item.image.url}}" class="img-responsive" alt="Image">
+          <button>Likes: {{ photos_item.likes }}</button>
+          <button>comments: {{ photos_item.comments }}</button>
         </a>
+        
       </div>
+      
       <div class="modal fade" id="exampleModalLong{{photos_item.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLongTitle" aria-hidden="true">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
@@ -27,10 +31,9 @@
               </button>
             </div>
             <div class="modal-body" style="text-align: center;">
-              <img style="width: 600px;height: 300px;" src="{{photos_item.image.url}}" class="img-responsive" alt="Image">
-              <h2 class="" style="color: purple;">caption : {{ photos_item.caption }} </h2>
-              <h3 class="" style="color: purple;">Likes: {{ photos_item.likes }} </h3>
-              <h4 class="" style="color: rgb(59, 39, 59);">comments: {{ photos_item.comments }} </h4>
+              <img style="width: 300px;height: 300px;" src="{{photos_item.image.url}}" class="img-responsive" alt="Image">
+              <h4 class="" style="color: purple;">caption {{ photos_item.caption }} </h4>
+              
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
            </div>
           </div>
