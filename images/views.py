@@ -4,6 +4,8 @@ import datetime as dt
 from .models import Image, Profile, Like
 from .email import send_welcome_email
 from .forms import LetterForm
+from django.contrib.auth.decorators import login_required
+
 # Create your views here.
 
 def post (request):
@@ -15,11 +17,13 @@ def post (request):
             email = form.cleaned_data['email']
             recipient = LetterRecipients(name = name,email =email)
             recipient.save()
+            send_welcome_email(name,email)
             HttpResponseRedirect('post')
     else:
         form = LetterForm()
     return render(request,'post.html',{'image':image, 'letterForm':form})
 
+@login_required(login_url='/accounts/login/')
 def image(request,image_id):
     try:
         image = Image.objects.get(id = image_id)
