@@ -1,4 +1,4 @@
-from django.http import HttpResponse, Http404
+from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import datetime as dt
 from .models import Image, Profile, Like
@@ -11,7 +11,11 @@ def post (request):
     if request.method == 'POST':
         form = LetterForm(request.POST)
         if form.is_valid():
-            print('valid')
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient = LetterRecipients(name = name,email =email)
+            recipient.save()
+            HttpResponseRedirect('post')
     else:
         form = LetterForm()
     return render(request,'post.html',{'image':image, 'letterForm':form})
