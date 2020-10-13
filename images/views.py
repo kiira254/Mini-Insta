@@ -17,21 +17,21 @@ def image(request,image_id):
     return render(request,"all-photos/image.html", {"image":image})
 
 
-# def search_results(request):
-#     if 'image' in request.GET and request.GET['image']:
-#         search_term = request.GET.get('image')
-#         print(search_term)
-#         searched_photos = Image.search_by_title(search_term)
-#         print(searched_photos)
-#         message = f'{search_term}'
-#         params = {
-#             'searched_photos': searched_photos,
-#             'message': message,
-#         }
+def search_results(request):
+    if 'image' in request.GET and request.GET['image']:
+        search_term = request.GET.get('image')
+        print(search_term)
+        searched_photos = Image.search_by_title(search_term)
+        print(searched_photos)
+        message = f'{search_term}'
+        params = {
+            'searched_photos': searched_photos,
+            'message': message,
+        }
 
-#         return render(request, 'all-photos/search.html',params)
+        return render(request, 'all-photos/search.html',params)
 
-#     else:
+    else:
         
-#         message = "You haven't searched for any category"
-#         return render(request, 'all-photos/search.html',{"message":message})
+        message = "You haven't searched for any image"
+        return render(request, 'all-photos/search.html',{"message":message})

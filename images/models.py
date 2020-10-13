@@ -13,6 +13,10 @@ class Image(models.Model):
     def __str__(self):
         return self.name
 
+    @classmethod
+    def search_by_title(cls,search_term):
+        image = cls.objects.filter(name__icontains=search_term)
+        return image
 
     @classmethod
     def save_Image (cls):
