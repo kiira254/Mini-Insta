@@ -74,3 +74,7 @@ class Profile(models.Model):
 
     def __str__(self):  
         return "%s's profile" % self.profile_photo  
+
+class LetterRecipients(models.Model):
+    name = models.CharField(max_length = 30)
+    email = models.EmailField()

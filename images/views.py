@@ -3,11 +3,18 @@ from django.shortcuts import render, redirect
 import datetime as dt
 from .models import Image, Profile, Like
 from .email import send_welcome_email
+from .forms import LetterForm
 # Create your views here.
 
 def post (request):
     image = Image.save_Image()
-    return render(request,'post.html',{'image':image})
+    if request.method == 'POST':
+        form = LetterForm(request.POST)
+        if form.is_valid():
+            print('valid')
+    else:
+        form = LetterForm()
+    return render(request,'post.html',{'image':image, 'letterForm':form})
 
 def image(request,image_id):
     try:
