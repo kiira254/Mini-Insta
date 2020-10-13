@@ -19,7 +19,17 @@
      <p>{{image.likes}}</p>
      <p>{{image.comment}}</p>
    </div>
+   <div class="row">
+    {% autoescape on %}
+    {{article.post| safe}}
+    {% endautoescape %}
 
+  </div>
+  <div class="row">
+    <p>Posted by {{article.editor.first_name}}</p>
+  </div>
+
+</div>
  </div>
 
  {% endblock %}
