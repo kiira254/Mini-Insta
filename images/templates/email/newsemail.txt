@@ -1,0 +1,3 @@
+Hello {{name}}
+
+Welcome to Mini-Insta. Hope yoe enjoy your stay here. We love you.
