@@ -2,15 +2,26 @@ from django.db import models
 from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from tinymce.models import HTMLField
+# from pyuploadcare.dj.models import ImageField
 
 # Create your models here.
+class GeeksModel(models.Model): 
+    title = models.CharField(max_length = 200) 
+    img = models.ImageField(upload_to = "images/") 
+  
+    def __str__(self): 
+        return self.title 
+
 class Image(models.Model):
-    image = models.ImageField(upload_to = 'image/',blank=True)
+    image = models.ImageField(upload_to = "images/")
     name = models.CharField(max_length =60)
-    caption =HTMLField()
-    profile= models.ForeignKey(User,on_delete=models.CASCADE)
-    editor = models.ForeignKey(User,on_delete=models.CASCADE)
-    # likes = models.ManyToManyField(User, through="Like")
+    caption =HTMLField(blank=True)
+    post_date = models.DateTimeField(auto_now=True)
+    likes = models.BooleanField(default=False)
+    profile = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    class Meta:
+        ordering = ('-post_date',)
 
     def __str__(self):
         return self.name
@@ -34,6 +45,22 @@ class Image(models.Model):
     def update_caption():
         self.save()
 
+    @classmethod
+    def get_image_id(cls, id):
+        image = Image.objects.get(pk=id)
+        return image
+    
+    @classmethod
+    def get_profile_images(cls, profile):
+        images = Image.objects.filter(profile__pk = profile)
+        return images
+    
+    @classmethod
+    def get_all_images(cls):
+        images = Image.objects.all()
+        return images
+
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         user_name = self.request.GET.get('user_name', '')
@@ -56,24 +83,42 @@ class Like(models.Model):
         pic = get_object_or_404(Picture, pk=id)
         user_likes_this = pic.like_set.filter(user=request.user) and True or False
 
-    # @classmethod
-    # def search_image(cls, key):
-    #     Image = cls.objects.filter(
-    #         cls(caption__contains=key) | cls(name__icontains=key))
-    #     print(Image)
-    #     return Image
+class Comments(models.Model):
+    comment = HTMLField()
+    posted_on = models.DateTimeField(auto_now=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    # @classmethod
-    # def search_by_category(cls, name):
-    #     Image = cls.objects.filter(name__icontains=name)
-    #     return Image
-
+    def save_comment(self):
+        self.save()
+    
+    @classmethod
+    def get_comments_by_images(cls, id):
+        comments = Comments.objects.filter(image__pk = id)
+        return comments
 
 class Profile(models.Model):
-    user = models.OneToOneField(User,on_delete=models.CASCADE)
-    profile_photo = models.ImageField(upload_to = 'image/', blank=True)
-    Bio = models.TextField()
+    profile_photo = models.ImageField(upload_to = "images/")
+    bio = HTMLField(null=True)
+    user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
 
+    def save_profile(self):
+        self.save()
+    
+    @classmethod
+    def search_profile(cls, name):
+        profile = Profile.objects.filter(user__username__icontains = name)
+        return profile
+    
+    @classmethod
+    def get_by_id(cls, id):
+        profile = Profile.objects.get(user = id)
+        return profile
+
+    @classmethod
+    def filter_by_id(cls, id):
+        profile = Profile.objects.filter(user = id).first()
+        return profile
     def __str__(self):  
         return "%s's profile" % self.profile_photo  
 

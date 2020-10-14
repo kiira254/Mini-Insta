@@ -1,16 +1,18 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import datetime as dt
-from .models import Image, Profile, Like
+from .models import Image, Profile, Like,Comments ,GeeksModel
 from .email import send_welcome_email
 from .forms import LetterForm
 from django.contrib.auth.decorators import login_required
-from .forms import LetterForm, ImageForm
+from .forms import LetterForm, ImageForm, GeeksForm,SignupForm,ProfileForm
 
 # Create your views here.
 
 def post (request):
     image = Image.save_Image()
+    context = {} 
+    context['form'] = GeeksForm() 
     if request.method == 'POST':
         form = LetterForm(request.POST)
         if form.is_valid():
@@ -22,7 +24,21 @@ def post (request):
             HttpResponseRedirect('post')
     else:
         form = LetterForm()
-    return render(request,'post.html',{'image':image, 'letterForm':form})
+    if request.method == "POST": 
+        form = GeeksForm(request.POST, request.FILES) 
+        if form.is_valid(): 
+            name = form.cleaned_data.get("name") 
+            img = form.cleaned_data.get("geeks_field") 
+            obj = GeeksModel.objects.create( 
+                                 title = name,  
+                                 img = img 
+                                 ) 
+            obj.save() 
+            print(obj) 
+    else: 
+        form = GeeksForm() 
+    context['form']= form 
+    return render(request,'post.html',{'image':image, 'letterForm':form},context)
 
 @login_required(login_url='/accounts/login/')
 def image(request,image_id):
