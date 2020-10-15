@@ -8,7 +8,7 @@ from tinymce.models import HTMLField
 class GeeksModel(models.Model): 
     title = models.CharField(max_length = 200) 
     img = models.ImageField(upload_to = "images/") 
-  
+    
     def __str__(self): 
         return self.title 
 
@@ -19,7 +19,7 @@ class Image(models.Model):
     post_date = models.DateTimeField(auto_now=True)
     likes = models.BooleanField(default=False)
     profile = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    comments = models.CharField(max_length=1500)
     class Meta:
         ordering = ('-post_date',)
 
@@ -114,6 +114,20 @@ class Profile(models.Model):
     def get_by_id(cls, id):
         profile = Profile.objects.get(user = id)
         return profile
+
+    @classmethod
+    def save_profile (cls):
+        profile_photo=cls.objects.filter()
+        return profile_photo
+
+    @classmethod
+    def delete_profile (cls):
+        profile_photo=cls.objects.filter()
+        return profile_photo
+
+    @classmethod
+       def update_profile():
+        self.save                                  ()
 
     @classmethod
     def filter_by_id(cls, id):

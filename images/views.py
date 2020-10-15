@@ -3,27 +3,15 @@ from django.shortcuts import render, redirect
 import datetime as dt
 from .models import Image, Profile, Like,Comments ,GeeksModel
 from .email import send_welcome_email
-from .forms import LetterForm
 from django.contrib.auth.decorators import login_required
 from .forms import LetterForm, ImageForm, GeeksForm,SignupForm,ProfileForm
 
 # Create your views here.
 
-def post (request):
-    image = Image.save_Image()
+@login_required(login_url='/accounts/login/')
+def profile (request):
     context = {} 
     context['form'] = GeeksForm() 
-    if request.method == 'POST':
-        form = LetterForm(request.POST)
-        if form.is_valid():
-            name = form.cleaned_data['your_name']
-            email = form.cleaned_data['email']
-            recipient = LetterRecipients(name = name,email =email)
-            recipient.save()
-            send_welcome_email(name,email)
-            HttpResponseRedirect('post')
-    else:
-        form = LetterForm()
     if request.method == "POST": 
         form = GeeksForm(request.POST, request.FILES) 
         if form.is_valid(): 
@@ -37,8 +25,23 @@ def post (request):
             print(obj) 
     else: 
         form = GeeksForm() 
-    context['form']= form 
-    return render(request,'post.html',{'image':image, 'letterForm':form},context)
+        context['form']= form 
+    return render(request,'profile.html',context)
+def post (request):
+    image = Image.save_Image()
+    if request.method == 'POST':
+        form = LetterForm(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['your_name']
+            email = form.cleaned_data['email']
+            recipient = LetterRecipients(name = name,email =email)
+            recipient.save()
+            send_welcome_email(name,email)
+            HttpResponseRedirect('post')
+    else:
+        form = LetterForm()
+    
+    return render(request,'post.html',{'image':image, 'letterForm':form})
 
 @login_required(login_url='/accounts/login/')
 def image(request,image_id):
@@ -60,7 +63,7 @@ def new_image(request):
         return redirect('post')
 
     else:
-        form = NewArticleForm()
+        form = NewImageForm()
     return render(request, 'new_post.html', {"form": form})
 
 def search_results(request):
