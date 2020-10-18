@@ -19,7 +19,7 @@ class Image(models.Model):
     post_date = models.DateTimeField(auto_now=True)
     likes = models.BooleanField(default=False)
     profile = models.ForeignKey(User, on_delete=models.CASCADE)
-    comments = models.CharField(max_length=1500)
+    comments = HTMLField (max_length=1500)
     class Meta:
         ordering = ('-post_date',)
 
@@ -67,6 +67,11 @@ class Image(models.Model):
         context['all_search_results'] = User.objects.filter(username__icontains=user_name )
         return context
 
+    @classmethod
+    def get_comments_by_images(cls, id):
+        comments = Comments.objects.filter(image__pk = id)
+        return comments
+
 class Like(models.Model):
     user = models.ForeignKey(User,on_delete=models.CASCADE)
     image = models.ForeignKey(Image,on_delete=models.CASCADE)
@@ -83,19 +88,16 @@ class Like(models.Model):
         pic = get_object_or_404(Picture, pk=id)
         user_likes_this = pic.like_set.filter(user=request.user) and True or False
 
-class Comments(models.Model):
-    comment = HTMLField()
-    posted_on = models.DateTimeField(auto_now=True)
-    image = models.ForeignKey(Image, on_delete=models.CASCADE)
-    user = models.ForeignKey(User, on_delete=models.CASCADE)
+# class Comments(models.Model):
+#     user_comment = HTMLField()
+#     posted_on = models.DateTimeField(auto_now=True)
+#     image = models.ForeignKey(Image, on_delete=models.CASCADE)
+#     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
-    def save_comment(self):
-        self.save()
+#     def save_comment(self):
+#         self.save()
     
-    @classmethod
-    def get_comments_by_images(cls, id):
-        comments = Comments.objects.filter(image__pk = id)
-        return comments
+    
 
 class Profile(models.Model):
     profile_photo = models.ImageField(upload_to = "images/")
@@ -126,7 +128,7 @@ class Profile(models.Model):
         return profile_photo
 
     @classmethod
-       def update_profile():
+    def update_profile():
         self.save                                  ()
 
     @classmethod

@@ -2,7 +2,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import Image, Profile, Comments
+from .models import Image, Profile
 
 
 class GeeksForm(forms.Form): 
@@ -27,10 +27,10 @@ class ProfileForm(forms.ModelForm):
         model = Profile
         exclude = ['user']
 
-class CommentForm(forms.ModelForm):
-    class Meta:
-        model = Comments
-        exclude = ['image', 'user']
+# class CommentForm(forms.ModelForm):
+#     class Meta:
+#         model = Comments
+#         exclude = ['image', 'user']
 
 class LetterForm(forms.Form):
     your_name = forms.CharField(label='First Name',max_length=30)

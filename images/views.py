@@ -1,7 +1,7 @@
 from django.http import HttpResponse, Http404, HttpResponseRedirect
 from django.shortcuts import render, redirect
 import datetime as dt
-from .models import Image, Profile, Like,Comments ,GeeksModel
+from .models import Image, Profile, Like,GeeksModel
 from .email import send_welcome_email
 from django.contrib.auth.decorators import login_required
 from .forms import LetterForm, ImageForm, GeeksForm,SignupForm,ProfileForm
