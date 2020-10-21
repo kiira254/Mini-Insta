@@ -30,7 +30,7 @@ def profile (request):
     else: 
         form = GeeksForm() 
         context['form']= form 
-    return render(request,'profile/profile.html',{'image':image},context)
+    return render(request,'profile/profile.html',context)
 
 @login_required(login_url='/accounts/login/')
 def update_profile(request):

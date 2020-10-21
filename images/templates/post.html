@@ -32,7 +32,9 @@
             </div>
             <div class="modal-body" style="text-align: center;">
               <img style="width: 300px;height: 300px;" src="{{photos_item.image.url}}" class="img-responsive" alt="Image">
-              <h4 class="" style="color: purple;">caption {{ photos_item.caption }} </h4>
+              <h4 class="" style="color: purple;">caption:{% autoescape on %}
+                {{ photos_item.caption | safe}}
+                {% endautoescape %}  </h4>
               
               <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
            </div>
@@ -50,6 +52,7 @@
       <div class="container-fluid">
 
         <form  action="{%url 'post'%}" method="post">
+
           {%csrf_token%}
          
           {% bootstrap_form letterForm layout='inline' %}
