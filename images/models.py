@@ -1,5 +1,7 @@
 from django.db import models
+import datetime as dt
 from django.contrib.auth.models import User
+import django.utils.timezone
 from django.db.models.signals import post_save
 from tinymce.models import HTMLField
 # from pyuploadcare.dj.models import ImageField
@@ -16,10 +18,11 @@ class Image(models.Model):
     image = models.ImageField(upload_to = "images/")
     name = models.CharField(max_length =60)
     caption =HTMLField(blank=True)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default='')
     post_date = models.DateTimeField(auto_now=True)
     likes = models.BooleanField(default=False)
-    profile = models.ForeignKey(User, on_delete=models.CASCADE)
-    comments = HTMLField (max_length=1500)
+    
+    
     class Meta:
         ordering = ('-post_date',)
 
@@ -88,14 +91,17 @@ class Like(models.Model):
         pic = get_object_or_404(Picture, pk=id)
         user_likes_this = pic.like_set.filter(user=request.user) and True or False
 
-# class Comments(models.Model):
-#     user_comment = HTMLField()
-#     posted_on = models.DateTimeField(auto_now=True)
-#     image = models.ForeignKey(Image, on_delete=models.CASCADE)
-#     user = models.ForeignKey(User, on_delete=models.CASCADE)
+class Comments(models.Model):
+    comment = models.CharField(max_length=255)
+    pub_date = models.DateTimeField(auto_now_add=True)
+    image = models.ForeignKey(Image, on_delete=models.CASCADE,)
+    user = models.ForeignKey(User, on_delete=models.CASCADE, default='')
 
-#     def save_comment(self):
-#         self.save()
+    @classmethod
+    def get_comments(cls):
+        comments = cls.objects.all()
+        return comments
+
     
     
 
@@ -104,9 +110,29 @@ class Profile(models.Model):
     bio = HTMLField(null=True)
     user = models.OneToOneField(User,on_delete=models.CASCADE, primary_key=True)
 
+    @classmethod
     def save_profile(self):
         self.save()
     
+    @classmethod
+    def delete_profile(self):
+        self.delete()
+
+    @classmethod
+    def updateProfile(self, update):
+       self.bio = update
+       self.save
+
+    @classmethod
+    def search_profile(cls, search_term):
+        user = cls.objects.filter(user__username__icontains=search_term)
+        return user 
+
+    @classmethod
+    def get_by_id(cls, id):
+        profile = cls.objects.get(id=id)
+        return profile
+
     @classmethod
     def search_profile(cls, name):
         profile = Profile.objects.filter(user__username__icontains = name)
@@ -117,20 +143,7 @@ class Profile(models.Model):
         profile = Profile.objects.get(user = id)
         return profile
 
-    @classmethod
-    def save_profile (cls):
-        profile_photo=cls.objects.filter()
-        return profile_photo
-
-    @classmethod
-    def delete_profile (cls):
-        profile_photo=cls.objects.filter()
-        return profile_photo
-
-    @classmethod
-    def update_profile():
-        self.save                                  ()
-
+   
     @classmethod
     def filter_by_id(cls, id):
         profile = Profile.objects.filter(user = id).first()

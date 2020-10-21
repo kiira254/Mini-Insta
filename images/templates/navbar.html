@@ -1,9 +1,9 @@
-<nav class="navbar navbar-dark bg-danger ">
+<nav style=" background-image: linear-gradient(120deg, rgba(251, 242, 218, 1) 45%, rgba(244, 177, 66, 1) 100%); " class="navbar navbar-dark ">
     <div class="container-fluid">
       <div class="navbar-header">
-        <a class="navbar-brand" href="{% url 'post' %}">Mini-Insta</a>
+        <a class="navbar-brand" style="color: rgba(255, 127, 80, 0.897);" href="{% url 'post' %}">Mini-Insta</a>
         
-          <a href="{%url 'profile'%}">Profile</a>
+          <a style="color:coral;" href="{%url 'profile'%}">Profile</a>
         
       </div>
     <!-- Adding a search form  -->
@@ -27,7 +27,7 @@
           <a href="#" class="dropdown-toggle btn btn-default" data-toggle="dropdown" role="button" aria-expanded="false">Account
                     <span class="caret"></span>
                 </a>
-          <ul class="dropdown-menu" role="menu">
+          <ol class="dropdown-menu" role="menu">
             <li>
               <a href="{%url 'post'%}">Home</a>
             </li>
@@ -36,18 +36,19 @@
               <a href="{%url 'new-image'%}">New Image</a>
             </li>
             <li>
-              <a href="/accounts/password/change">Change Password</a>
+              <a href="/accounts/logout">Logout</a>
             </li>
             <li>
               
             </li>
           </ul>
         </li>
-      </ul>
+      </ol>
       {% else %}
-      <li>
-        <a class='btn btn-default' href="/accounts/login">Login</a>
-      </li>
+      
+        <a style="color: coral;" class='btn btn-default' href="/accounts/login">Login</a>
+        <a style="color: coral;" href="/accounts/register">Sign Up</a>
+      
 
       {% endif %}
     </div>
