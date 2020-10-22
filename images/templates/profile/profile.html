@@ -1,24 +1,22 @@
 {%extends 'all-photos/base.html'%}
-{% load bootstrap4 %}
-{% load static %}
-{% block content %} 
-{{ block.super}}
-{% block styles %}
-{% bootstrap_css %}
+
+{%block content%}
+{{block.super}}
 <div class="container text-center">
     <div class="card bg-light" style="margin-top:5%;padding-top: 3%;padding-bottom: 3%;">
         <div class="row">
 
             <div class="col-xs-12 col-sm-6 col-md-3">
                 {%if user.profile.photo%}
-                <img class="img-circle" src="{{user.profile.post.url}}" style="height:200px;width: 200px;"
+                <img class="img-circle" src="{{user.profile.photo.url}}" style="height:200px;width: 200px;"
                     alt="No profile pic">
                 {%else%}
                 <p>No profile picture!</p>
                 {%endif%}
             </div>
 
-            
+           
+          {% endif %}
             <div class="col-xs-6 col-sm-6 col-md-3">
                 <strong style="font-size:25px;">{{current_user.username | title}}</strong>
                 <a href='/updateprofile/' class="btn btn-primary text-white">Edit profile</a>
@@ -51,8 +49,8 @@
         {%endif%}
         {% endfor %}
     </div>
-  
-  {% for post in posts %}
+
+    {% for post in posts %}
 
     <div class="modal fade" id="extraModal{{post.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
         aria-hidden="true">
@@ -74,9 +72,7 @@
                                 </span>{{post.caption}}</p>
 
                         </div>
-                        
-                        {% endfor %}
-                        {%endblock%}
+
                         <div class="card-body">
                             {% for comment in comments %}
                             {%if post.id == comment.post.id%}
@@ -92,5 +88,19 @@
             </div>
         </div>
     </div>
+    {%endfor%}
     
+
+
+</div>
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content" style="text-align: center;">        
+          <a type="button" class="btn" href="">Change Password</a><br>
+          <a type="button" class="btn" href="/logout">Logout</a><br>
+          <a type="button" class="btn" data-dismiss="modal">Cancel</a>
+      </div>
+    </div>
+  </div>
+</div>
 {%endblock%}

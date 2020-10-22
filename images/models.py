@@ -7,12 +7,12 @@ from tinymce.models import HTMLField
 # from pyuploadcare.dj.models import ImageField
 
 # Create your models here.
-class GeeksModel(models.Model): 
-    title = models.CharField(max_length = 200) 
-    img = models.ImageField(upload_to = "images/") 
+# class GeeksModel(models.Model): 
+#     title = models.CharField(max_length = 200) 
+#     img = models.ImageField(upload_to = "images/") 
     
-    def __str__(self): 
-        return self.title 
+#     def __str__(self): 
+#         return self.title 
 
 class Image(models.Model):
     image = models.ImageField(upload_to = "images/")
@@ -138,19 +138,7 @@ class Profile(models.Model):
         profile = Profile.objects.filter(user__username__icontains = name)
         return profile
     
-    @classmethod
-    def get_by_id(cls, id):
-        profile = Profile.objects.get(user = id)
-        return profile
-
-   
-    @classmethod
-    def filter_by_id(cls, id):
-        profile = Profile.objects.filter(user = id).first()
-        return profile
-    def __str__(self):  
-        return "%s's profile" % self.profile_photo  
-
+    
 class LetterRecipients(models.Model):
     name = models.CharField(max_length = 30)
     email = models.EmailField()

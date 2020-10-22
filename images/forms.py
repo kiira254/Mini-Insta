@@ -5,10 +5,10 @@ from django.contrib.auth.models import User
 from .models import Image, Profile, Comments
 
 
-class GeeksForm(forms.Form): 
-    name = forms.CharField() 
-    geeks_field = forms.ImageField() 
-    caption= forms.CharField(max_length=100)
+# class GeeksForm(forms.Form): 
+#     name = forms.CharField() 
+#     geeks_field = forms.ImageField() 
+#     caption= forms.CharField(max_length=100)
 class SignupForm(UserCreationForm):
     def __init__(self, *args, **kwargs):
         super(SignUpForm, self).__init__(*args, **kwargs)
