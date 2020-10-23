@@ -78,7 +78,7 @@ Like and Follow functionality do not work
     - Postgresql
 
 ## Support and contact details
-Contact me on developer.waweru@gmail.com for any comments, reviews or advice.
+Contact me on developer.nkamotho69@gmail.com for any comments, reviews or advice.
 
 ### License
 Copyright (c) **Nelly Kamotho**
